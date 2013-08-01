@@ -1,4 +1,4 @@
-module Magento
+module MagentoAPI
   class Inventory < Base
     class << self
       def api_path

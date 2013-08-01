@@ -1,12 +1,12 @@
-# Base Magento model handles basic crud operations and stores connection to magento instance.
+# Base MagentoAPI model handles basic crud operations and stores connection to magento instance.
 # It has the following class attributes:
 #
-# * <tt>connection</tt>: the Magento::Connection to use
+# * <tt>connection</tt>: the MagentoAPI::Connection to use
 # 
 # And the following instance attributes:
 # * <tt>attributes</tt>: the attributes of the magento object
 #
-module Magento
+module MagentoAPI
   class Base
     attr_accessor :attributes
     class << self; attr_accessor :connection end
@@ -16,7 +16,7 @@ module Magento
       def commit(method, *args)
         # TODO: need to catch errors sent back from magento and bubble them up appropriately
         method = "#{api_path}.#{method}"
-        Magento::Base.connection.call(method, *args)
+        MagentoAPI::Base.connection.call(method, *args)
       end
       
       def api_path

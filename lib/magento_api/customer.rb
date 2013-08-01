@@ -1,4 +1,4 @@
-module Magento
+module MagentoAPI
   # http://www.magentocommerce.com/wiki/doc/webservices-api/api/customer
   # 100  Invalid customer data. Details in error message.
   # 101  Invalid filters specified. Details in error message.
@@ -18,8 +18,8 @@ module Magento
       #   “firstname”, “created_in”, “customer_id”, “password_hash”, “store_id”, “email”, “created_at”
       # 
       # Note: password_hash will only match exactly with the same MD5 and salt as was used when 
-      # Magento stored the value. If you try to match with an unsalted MD5 hash, or any salt other 
-      # than what Magento used, it will not match. This is just a straight string comparison.
+      # MagentoAPI stored the value. If you try to match with an unsalted MD5 hash, or any salt other 
+      # than what MagentoAPI used, it will not match. This is just a straight string comparison.
       def list(*args)
         results = commit("list", *args)
         results.collect do |result|
@@ -105,7 +105,7 @@ module Magento
     end
     
     def addresses
-      Magento::CustomerAddress.list(self.id)
+      MagentoAPI::CustomerAddress.list(self.id)
     end
     
     def delete

@@ -1,4 +1,4 @@
-module Magento
+module MagentoAPI
   class Order < Base
     # http://www.magentocommerce.com/wiki/doc/webservices-api/api/sales_order
     # 100  Requested order not exists.
@@ -97,7 +97,7 @@ module Magento
         options.each_pair { |k, v| filters[k] = {:eq => v} }
         results = list(filters)
         
-        raise Magento::ApiError, "100 -> Requested order not exists." if results.blank?
+        raise MagentoAPI::ApiError, "100 -> Requested order not exists." if results.blank?
         
         if find_type == :first
           info(results.first.increment_id)
@@ -111,16 +111,16 @@ module Magento
     
     def order_items
       self.items.collect do |item|
-        Magento::OrderItem.new(item)
+        MagentoAPI::OrderItem.new(item)
       end
     end
     
     def shipping_address
-      Magento::CustomerAddress.new(@attributes["shipping_address"])
+      MagentoAPI::CustomerAddress.new(@attributes["shipping_address"])
     end
     
     def billing_address
-      Magento::CustomerAddress.new(@attributes["billing_address"])
+      MagentoAPI::CustomerAddress.new(@attributes["billing_address"])
     end
   end
 end

@@ -1,4 +1,4 @@
-module Magento
+module MagentoAPI
   # http://www.magentocommerce.com/wiki/doc/webservices-api/api/customer_address
   # 100  Invalid address data. Details in error message.
   # 101  Customer not exists.
@@ -85,11 +85,11 @@ module Magento
     end
     
     def country
-      Magento::Country.find_by_id(self.country_id)
+      MagentoAPI::Country.find_by_id(self.country_id)
     end
     
     def region
-      Magento::Region.find_by_country_and_id(self.country_id, self.region_id)
+      MagentoAPI::Region.find_by_country_and_id(self.country_id, self.region_id)
     end
 
     def delete
