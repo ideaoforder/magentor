@@ -9,7 +9,7 @@ module MagentoAPI
     end
 
     def client
-      @client ||= XMLRPC::Client.new(config[:host], config[:path], config[:port])
+      @client ||= XMLRPC::Client.new2(config[:host] + config[:path])
     end
 
     def connect
