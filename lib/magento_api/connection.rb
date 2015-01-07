@@ -20,6 +20,21 @@ module MagentoAPI
       cache? ? call_with_caching(method, *args) : call_without_caching(method, *args)
     end
 
+    def resources
+      logger.debug "resources"
+      connect
+      retry_on_connection_error do
+        client.call_async("resources", session)
+      end
+    rescue XMLRPC::FaultException => e
+      logger.debug "exception: #{e.faultCode} -> #{e.faultString}"
+      if e.faultCode == 5 # Session timeout
+        connect!
+        retry
+      end
+      raise MagentoAPI::ApiError, "#{e.faultCode} -> #{e.faultString}"
+    end
+
     private
 
       def connect!
